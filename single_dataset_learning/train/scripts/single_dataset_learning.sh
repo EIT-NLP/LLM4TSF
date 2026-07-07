@@ -1,0 +1,15 @@
+#!/bin/bash
+
+families=("LLM4TS" "TSFMs")
+scales=("Tiny" "Small" "Base" "Large")
+
+for family in "${families[@]}"; do
+  for scale in "${scales[@]}"; do
+    echo ">>> Running: --family $family --scales $scale"
+    accelerate launch \
+      --config_file main/single_dataset_learning/train/scripts/accelerate_config.yaml \
+      main/single_dataset_learning/train/run.py \
+      --family "$family" \
+      --scales "$scale"
+  done
+done
